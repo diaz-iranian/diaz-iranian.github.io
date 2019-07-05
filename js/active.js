@@ -1,81 +1,96 @@
 (function ($) {
     'use strict';
 
+    // [ JS Active Code Index ]
+
+    // :: 1.0 Owl Carousel Active Code
+    // :: 2.0 Slick Active Code
+    // :: 3.0 Footer Reveal Active Code
+    // :: 4.0 ScrollUp Active Code
+    // :: 5.0 CounterUp Active Code
+    // :: 6.0 onePageNav Active Code
+    // :: 7.0 Magnific-popup Video Active Code
+    // :: 8.0 Sticky Active Code
+    // :: 9.0 Preloader Active code
+
+    // :: 1.0 Owl Carousel Active Code
     if ($.fn.owlCarousel) {
-        // :: 1.0 Welcome Post Slider Active Code
-        $(".welcome-post-sliders").owlCarousel({
-            items: 4,
+        $(".welcome_slides").owlCarousel({
+            items: 1,
             loop: true,
             autoplay: true,
             smartSpeed: 1500,
-            margin: 10,
             nav: true,
-            navText: ['', ''],
+            navText: ["<i class='pe-7s-angle-left'</i>", "<i class='pe-7s-angle-right'</i>"]
+        });
+        $(".app_screenshots_slides").owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            smartSpeed: 800,
+            margin: 30,
+            center: true,
+            dots: true,
             responsive: {
-                320: {
+                0: {
                     items: 1
                 },
-                576: {
-                    items: 2
-                },
-                992: {
+                480: {
                     items: 3
                 },
-                1200: {
-                    items: 4
+                992: {
+                    items: 5
                 }
             }
-        })
-    }
-
-    // Masonary Gallery Active Code
-    if ($.fn.imagesLoaded) {
-        $('.fplus-portfolio').imagesLoaded(function () {
-            // filter items on button click
-            $('.portfolio-menu').on('click', 'button', function () {
-                var filterValue = $(this).attr('data-filter');
-                $grid.isotope({
-                    filter: filterValue
-                });
-            });
-            // init Isotope
-            var $grid = $('.fplus-portfolio').isotope({
-                itemSelector: '.single_gallery_item',
-                percentPosition: true,
-                masonry: {
-                    columnWidth: '.single_gallery_item'
-                }
-            });
         });
     }
 
-    $('#nav-icon').on('click', function () {
-        $(this).toggleClass('open');
-        $('.fplus-menu-area').toggleClass('menu-open');
-    });
+    // :: 2.0 Slick Active Code
+    if ($.fn.slick) {
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            speed: 500,
+            arrows: false,
+            fade: true,
+            asNavFor: '.slider-nav'
+        });
+        $('.slider-nav').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            speed: 500,
+            asNavFor: '.slider-for',
+            dots: true,
+            centerMode: true,
+            focusOnSelect: true,
+            slide: 'div',
+            autoplay: true,
+            centerMode: true,
+            centerPadding: '30px',
+            mobileFirst: true,
+            prevArrow: '<i class="fa fa-angle-left"></i>',
+            nextArrow: '<i class="fa fa-angle-right"></i>'
+        });
+    }
 
-    // :: 5.0 ScrollDown Active Code
-    $("#scrollDown").on('click', function () {
-        $('html, body').animate({
-            scrollTop: $("#projects").offset().top - 70
-        }, 1500);
-    });
+    // :: 3.0 Footer Reveal Active Code
+    if ($.fn.footerReveal) {
+        $('footer').footerReveal({
+            shadow: true,
+            shadowOpacity: 0.3,
+            zIndex: -101
+        });
+    }
 
-    // Gallery Menu Style Active Code
-    $('.portfolio-menu button.btn').on('click', function () {
-        $('.portfolio-menu button.btn').removeClass('active');
-        $(this).addClass('active');
-    })
-
-    // :: 4.0 ScrollUp Active JS
+    // :: 4.0 ScrollUp Active Code
     if ($.fn.scrollUp) {
         $.scrollUp({
             scrollSpeed: 1500,
-            scrollText: '<i class="fa fa-arrow-up" aria-hidden="true"></i>'
+            scrollText: '<i class="fa fa-angle-up"></i>'
         });
     }
 
-    // :: 5.0 CounterUp Active JS
+    // :: 5.0 CounterUp Active Code
     if ($.fn.counterUp) {
         $('.counter').counterUp({
             delay: 10,
@@ -85,16 +100,16 @@
 
     // :: 6.0 onePageNav Active Code
     if ($.fn.onePageNav) {
-        $('#fplusNav').onePageNav({
+        $('#nav').onePageNav({
             currentClass: 'active',
             scrollSpeed: 2000,
             easing: 'easeOutQuad'
         });
     }
 
-    // :: 7.0 Video Active Code
+    // :: 7.0 Magnific-popup Video Active Code
     if ($.fn.magnificPopup) {
-        $('.video--play--btn').magnificPopup({
+        $('.video_btn').magnificPopup({
             disableOn: 0,
             type: 'iframe',
             mainClass: 'mfp-fade',
@@ -104,24 +119,26 @@
         });
     }
 
-    // :: 6.0 PreventDefault a Click
-    $("a[href='#']").on('click', function ($) {
-        $.preventDefault();
+    $('a[href="#"]').click(function ($) {
+        $.preventDefault()
     });
-
-    // :: 9.0 wow Active Code
-    if ($.fn.init) {
-        new WOW().init();
-    }
-
-    // :: 10.0 matchHeight Active JS
-    if ($.fn.matchHeight) {
-        $('.item').matchHeight();
-    }
 
     var $window = $(window);
 
-    // :: 11.0 Preloader active code
+    if ($window.width() > 767) {
+        new WOW().init();
+    }
+
+    // :: 8.0 Sticky Active Code
+    $window.on('scroll', function () {
+        if ($window.scrollTop() > 48) {
+            $('.header_area').addClass('sticky slideInDown');
+        } else {
+            $('.header_area').removeClass('sticky slideInDown');
+        }
+    });
+
+    // :: 9.0 Preloader Active code
     $window.on('load', function () {
         $('#preloader').fadeOut('slow', function () {
             $(this).remove();
